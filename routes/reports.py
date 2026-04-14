@@ -74,3 +74,19 @@ def download_report(report_id, rtype):
         path = report['tcc_pdf_path']
         name = f"TCC_{client['display_name']}_{report['quarter']}.pdf"
     return send_file(path, as_attachment=True, download_name=name)
+
+@reports_bp.route('/reports/<int:report_id>/view/<string:rtype>')
+def view_report(report_id, rtype):
+    conn = get_db()
+    report = conn.execute("SELECT * FROM reports WHERE id=?", (report_id,)).fetchone()
+    conn.close()
+    if not report: abort(404)
+    report = dict(report)
+    client = get_full_client(report['client_id'])
+    if rtype == 'sacs':
+        path = report['sacs_pdf_path']
+        name = f"SACS_{client['display_name']}_{report['quarter']}.pdf"
+    else:
+        path = report['tcc_pdf_path']
+        name = f"TCC_{client['display_name']}_{report['quarter']}.pdf"
+    return send_file(path, as_attachment=False, download_name=name, mimetype='application/pdf')

@@ -12,14 +12,26 @@
   <p class="subtitle">{{ report.quarter }} · {{ report.report_date }}</p>
 
   <div style="display:grid;gap:.75rem;margin:1.75rem 0">
-    <a href="{{ url_for('reports.download_report', report_id=report.id, rtype='sacs') }}"
-       class="btn btn-blue" style="justify-content:center;padding:.75rem;font-size:1rem">
-      ⬇ Download SACS (Cashflow PDF)
-    </a>
-    <a href="{{ url_for('reports.download_report', report_id=report.id, rtype='tcc') }}"
-       class="btn btn-primary" style="justify-content:center;padding:.75rem;font-size:1rem">
-      ⬇ Download TCC (Net Worth PDF)
-    </a>
+    <div style="display:grid;grid-template-columns:1fr auto;gap:.5rem;align-items:center">
+      <a href="{{ url_for('reports.view_report', report_id=report.id, rtype='sacs') }}"
+         target="_blank" class="btn btn-blue" style="justify-content:center;padding:.75rem;font-size:1rem">
+        👁 View SACS (Cashflow PDF)
+      </a>
+      <a href="{{ url_for('reports.download_report', report_id=report.id, rtype='sacs') }}"
+         class="btn btn-outline" style="padding:.75rem;font-size:1rem" title="Download SACS PDF">
+        ⬇
+      </a>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr auto;gap:.5rem;align-items:center">
+      <a href="{{ url_for('reports.view_report', report_id=report.id, rtype='tcc') }}"
+         target="_blank" class="btn btn-primary" style="justify-content:center;padding:.75rem;font-size:1rem">
+        👁 View TCC (Net Worth PDF)
+      </a>
+      <a href="{{ url_for('reports.download_report', report_id=report.id, rtype='tcc') }}"
+         class="btn btn-outline" style="padding:.75rem;font-size:1rem" title="Download TCC PDF">
+        ⬇
+      </a>
+    </div>
   </div>
 
   <div style="display:flex;gap:.75rem;justify-content:center">
